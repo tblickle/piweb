@@ -17,9 +17,7 @@ public class ConfigurationResource {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public PortDescriptionList getPortConCollection() throws Exception {
-	
 		PortDescriptionList pc = getPortConfiguration(servletContext);
-		
 		return pc;
 	}
 	

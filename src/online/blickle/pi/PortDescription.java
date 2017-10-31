@@ -12,6 +12,13 @@ public class PortDescription {
 	
 	public PortDescription(){}
 	
+	public PortDescription(int raspPortNr, String id, boolean isOutput, String description) {
+		this.raspPortNr = raspPortNr;
+		this.id = id;
+		this.description = description;
+		this.isOutput = isOutput;
+	}
+	
 	public int getRaspPortNr() {
 		return raspPortNr;
 	}
@@ -32,22 +39,16 @@ public class PortDescription {
 		this.isOutput = isOutput;
 	}
 
-	public PortDescription(int raspPortNr, String id, boolean isOutput, String description) {
-		this.raspPortNr = raspPortNr;
-		this.id = id;
-		this.description = description;
-		this.isOutput = isOutput;
-	}
 	public String getDescription() {
 		return description;
 	}
+	
 	public boolean getIsOutput() {
 		return isOutput;
 	}
+	
 	public String getId() {
 		return id;
 	}
-	
-
 	
 }

@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.owlike.genson.Genson;
+
 @XmlRootElement
 public class PortDescriptionList {
 	
@@ -31,5 +33,10 @@ public class PortDescriptionList {
 
 	public void setPortDescriptions(Collection<PortDescription> portDescriptions) {
 		this.portDescriptions = portDescriptions;
+	}
+	
+	public String toString() {
+		Genson genson = new Genson();
+		return genson.serialize(this);
 	}
 }
