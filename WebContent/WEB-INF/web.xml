@@ -29,6 +29,10 @@
   <context-param>
        <param-name>online.blickle.pi.HardwareAccess</param-name>
        <param-value>online.blickle.pi.impl.HardwareController</param-value>
+       
+       <!-- 
+       <param-value>online.blickle.pi.HardwareEmulator</param-value>
+        -->
   </context-param>
   <context-param>
        <param-name>online.blickle.pi.PortConfiguration</param-name>

@@ -10,6 +10,7 @@ import javax.servlet.ServletContextListener;
 
 import online.blickle.pi.HardwareAccess;
 import online.blickle.pi.PortDescriptionList;
+import online.blickle.pi.impl.HardwareController;
 
 import com.owlike.genson.Genson;
 
@@ -44,8 +45,9 @@ public class PiwebServletContextListener implements ServletContextListener {
 		return p;
 	}
 	
-	private HardwareAccess createHWAccessFromWebXML(ServletContext servletContext,PortDescriptionList pl)  {
+	private HardwareAccess createHWAccessFromWebXML(ServletContext servletContext,PortDescriptionList pl) {
 		String sHWAccessClassName = servletContext.getInitParameter(HardwareAccess.KEY);
+		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"Trying to instantiate: "+sHWAccessClassName);
 		try {
 			Class<?> clazz = Class.forName(sHWAccessClassName);
 			Constructor<?> ctor = clazz.getConstructor(PortDescriptionList.class);
@@ -55,5 +57,9 @@ public class PiwebServletContextListener implements ServletContextListener {
 		} catch (ReflectiveOperationException e) {
 			throw new IllegalArgumentException(e);
 		}
+	}
+	
+	private HardwareAccess createHardware(PortDescriptionList pl) {
+		return new HardwareController(pl);
 	}
 }

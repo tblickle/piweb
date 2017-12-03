@@ -31,8 +31,8 @@ public class HardwareResoure {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Collection<RaspberryPort> getPortStatus() throws Exception {
 	
-		HardwareAccess ctrl = getHardwareAccess(servletContext);
-		PortDescriptionList pc = getPortConfiguration(servletContext);
+		HardwareAccess ctrl = getHardwareAccess();
+		PortDescriptionList pc = getPortConfiguration();
 		
 		Collection<RaspberryPort> pL = new ArrayList<RaspberryPort>();
 		for (PortDescription portDesc:pc.getPortDescriptions()) {
@@ -46,8 +46,8 @@ public class HardwareResoure {
 	@Produces({MediaType.APPLICATION_JSON})
 	public RaspberryPort getPortStatus(@PathParam("id") String id) throws IOException {
 	
-		HardwareAccess ctrl = getHardwareAccess(servletContext);
-		PortDescriptionList pc = getPortConfiguration(servletContext);
+		HardwareAccess ctrl = getHardwareAccess();
+		PortDescriptionList pc = getPortConfiguration();
 		PortDescription port =  pc.getPortDecriptionById(id);
 		
 		RaspberryPort p = new RaspberryPort(port, ctrl.getPortStatus(port));
@@ -61,8 +61,8 @@ public class HardwareResoure {
 	public RaspberryPort setPortStatus(@PathParam("id") String id,@PathParam("value") String value) throws IOException {
 	
 		boolean portStatus = extractPortStatus(value);
-		HardwareAccess ctrl = getHardwareAccess(servletContext);
-		PortDescriptionList pc = getPortConfiguration(servletContext);
+		HardwareAccess ctrl = getHardwareAccess();
+		PortDescriptionList pc = getPortConfiguration();
 		PortDescription port =  pc.getPortDecriptionById(id);
 		
 		if (portStatus) {
@@ -90,12 +90,12 @@ public class HardwareResoure {
 	}
 	
 	
-	private HardwareAccess getHardwareAccess(ServletContext context) {
-		return (HardwareAccess)context.getAttribute(HardwareAccess.KEY);
+	private HardwareAccess getHardwareAccess() {
+		return (HardwareAccess)servletContext.getAttribute(HardwareAccess.KEY);
 	}
 	
-	private PortDescriptionList getPortConfiguration(ServletContext context) {
-		return (PortDescriptionList)context.getAttribute(PortDescriptionList.KEY);
+	private PortDescriptionList getPortConfiguration() {
+		return (PortDescriptionList)servletContext.getAttribute(PortDescriptionList.KEY);
 	}
 	
 }
