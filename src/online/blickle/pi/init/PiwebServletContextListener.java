@@ -11,6 +11,8 @@ import javax.servlet.ServletContextListener;
 import online.blickle.pi.HardwareAccess;
 import online.blickle.pi.PortDescriptionList;
 import online.blickle.pi.impl.HardwareController;
+import online.blickle.pi.observer.ObserverManager;
+import online.blickle.pi.observer.PortObserver;
 
 import com.owlike.genson.Genson;
 
@@ -35,6 +37,12 @@ public class PiwebServletContextListener implements ServletContextListener {
 		HardwareAccess hw = createHWAccessFromWebXML(servletContext, p);
 		servletContext.setAttribute(HardwareAccess.KEY, hw);
 		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"Hardware access implementation: "+hw.getClass().getName());
+		
+		ObserverManager om = new ObserverManager(p);
+		servletContext.setAttribute(ObserverManager.KEY, om);
+		PortObserver dummy = new PortObserver("TASTER_AUSSEN", "http://localhost:8080/dummybserver");
+		om.addObserver(dummy);
+		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"PortObserver initialized.");
 		
 	}
 

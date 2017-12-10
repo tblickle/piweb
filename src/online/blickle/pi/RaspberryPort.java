@@ -29,7 +29,7 @@ public class RaspberryPort {
 		this.id = id;
 	}
 
-	public void setOutput(boolean isOutput) {
+	public void setIsOutput(boolean isOutput) {
 		this.isOutput = isOutput;
 	}
 
@@ -41,6 +41,12 @@ public class RaspberryPort {
 	}
 	public boolean getIsOutput() {
 		return this.isOutput;
+	}
+
+	@Override
+	public String toString() {
+		return "RaspberryPort [id=" + id + ", value=" + value + ", isOutput="
+				+ isOutput + "]";
 	}
 	
 

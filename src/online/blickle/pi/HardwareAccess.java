@@ -11,6 +11,7 @@ public interface HardwareAccess {
 	public  void clearPort(PortDescription descNr);
 	public  boolean getPortStatus(PortDescription descNr);
 	public  void addPortChangeListner (PortChangeListener listener, PortDescription portDesc);
+	public void removePortChangeListner(PortChangeListener listener, PortDescription portDesc);
 	public Collection<PortDescription> getAllPortDescriptions();
 	
 }

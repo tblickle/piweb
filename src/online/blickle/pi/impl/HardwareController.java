@@ -18,6 +18,7 @@ import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.RaspiPin;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListener;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class HardwareController implements HardwareAccess{
@@ -138,6 +139,19 @@ public class HardwareController implements HardwareAccess{
 		PortListenerWrapper lw = new PortListenerWrapper(listener);
 		GpioPinDigital pin = getPin(portDesc);
 		pin.addListener(lw);
+	}
+	
+	public void removePortChangeListner(PortChangeListener listener, PortDescription portDesc) {
+		 GpioPinDigital pin = getPin(portDesc);
+		 Collection<GpioPinListener> pinListeners = pin.getListeners();
+		 for (GpioPinListener l:pinListeners) {
+			 if (l instanceof PortListenerWrapper) {
+				 PortListenerWrapper plw = (PortListenerWrapper)l;
+				 if (plw.listener == listener) {
+					 pin.removeListener(plw);
+				 }
+			 }
+		 }
 	}
 	
 	

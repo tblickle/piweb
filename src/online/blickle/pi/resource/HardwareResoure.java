@@ -14,6 +14,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import online.blickle.pi.HardwareAccess;
 import online.blickle.pi.PortDescription;
@@ -55,26 +57,31 @@ public class HardwareResoure {
 		return p;
 	}
 	
-	@Path("/{id}/{value}")
+	@Path("/{id}")
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
-	public RaspberryPort setPortStatus(@PathParam("id") String id,@PathParam("value") String value) throws IOException {
+	public Response setPortStatus(@PathParam("id") String id,String value) throws IOException {
 	
 		boolean portStatus = extractPortStatus(value);
 		HardwareAccess ctrl = getHardwareAccess();
 		PortDescriptionList pc = getPortConfiguration();
 		PortDescription port =  pc.getPortDecriptionById(id);
+		if (port.getIsOutput()) {
+			if (portStatus) {
+				ctrl.setPort(port);
+				Logger.getLogger (HardwareResoure.class.getName()).log(Level.INFO,"Set port "+port.getId());
+			} else  {
+				ctrl.clearPort(port);
+				Logger.getLogger (HardwareResoure.class.getName()).log(Level.INFO,"Cleared port "+port.getId());
+			}
+			RaspberryPort p = new RaspberryPort(port, ctrl.getPortStatus(port));
+			Logger.getLogger (HardwareResoure.class.getName()).log(Level.INFO,"Port: "+p);
 		
-		if (portStatus) {
-			ctrl.setPort(port);
-			Logger.getLogger (HardwareResoure.class.getName()).log(Level.INFO,"Set port "+port.getId());
-		} else  {
-			ctrl.clearPort(port);
-			Logger.getLogger (HardwareResoure.class.getName()).log(Level.INFO,"Cleared port "+port.getId());
+			return Response.ok(p).status(Response.Status.CREATED).build();	
+		} else {
+			return Response.status(Status.BAD_REQUEST).build();
 		}
-		RaspberryPort p = new RaspberryPort(port, ctrl.getPortStatus(port));
 		
-		return p;
 	}
 
 	private boolean extractPortStatus(String value) {

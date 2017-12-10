@@ -50,5 +50,14 @@ public class PortDescription {
 	public String getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "PortDescription [raspPortNr=" + raspPortNr + ", id=" + id
+				+ ", description=" + description + ", isOutput=" + isOutput
+				+ "]";
+	}
+	
+	
 	
 }

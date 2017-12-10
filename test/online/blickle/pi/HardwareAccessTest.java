@@ -81,9 +81,9 @@ public class HardwareAccessTest {
 	
 	private RaspberryPort setPort(String portId, boolean value) {
 		System.out.println("Setport '"+portId+"'="+value);
-		WebTarget target = client.target(BASE_URL+"/ports/"+portId+"/"+value);
+		WebTarget target = client.target(BASE_URL+"/ports/"+portId);
 		Invocation.Builder invBuilder = target.request(MediaType.APPLICATION_JSON);
-		Response res = invBuilder.post(Entity.json(""));
+		Response res = invBuilder.post(Entity.json(value));
 		String json = res.readEntity(String.class);
 		RaspberryPort p = genson.deserialize(json, RaspberryPort.class);
 		return p;

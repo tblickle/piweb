@@ -51,6 +51,12 @@ public class HardwareEmulator implements HardwareAccess{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void removePortChangeListner(PortChangeListener listener,
+			PortDescription portDesc) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 	@Override
@@ -67,4 +73,6 @@ public class HardwareEmulator implements HardwareAccess{
 		}
 	}
 
+
+	
 }
