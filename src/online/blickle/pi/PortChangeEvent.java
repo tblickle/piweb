@@ -17,5 +17,12 @@ public class PortChangeEvent {
 	public boolean isPosTrigger() {
 		return posTrigger;
 	}
+
+	@Override
+	public String toString() {
+		return "PortChangeEvent [port=" + port + ", posTrigger=" + posTrigger
+				+ "]";
+	}
+	
 	
 }

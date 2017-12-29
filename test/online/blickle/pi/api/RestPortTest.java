@@ -1,4 +1,4 @@
-package online.blickle.pi.observer;
+package online.blickle.pi.api;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import online.blickle.pi.RaspberryPort;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
 public class RestPortTest {

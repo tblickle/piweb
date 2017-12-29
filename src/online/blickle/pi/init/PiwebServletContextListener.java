@@ -38,16 +38,15 @@ public class PiwebServletContextListener implements ServletContextListener {
 		servletContext.setAttribute(HardwareAccess.KEY, hw);
 		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"Hardware access implementation: "+hw.getClass().getName());
 		
-		ObserverManager om = new ObserverManager(p);
+		ObserverManager om = new ObserverManager(p,hw);
 		servletContext.setAttribute(ObserverManager.KEY, om);
-		PortObserver dummy = new PortObserver("TASTER_AUSSEN", "http://localhost:8080/dummybserver");
-		om.addObserver(dummy);
 		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"PortObserver initialized.");
 		
 	}
 
 	private PortDescriptionList readPortConfigFromWebXML(ServletContext servletContext) {
 		String sConfig = servletContext.getInitParameter(PortDescriptionList.KEY);
+		Logger.getLogger (PiwebServletContextListener.class.getName()).log(Level.INFO,"PortDescription from web.xml: "+sConfig);
 		Genson genson = new Genson();
 		PortDescriptionList p = genson.deserialize(sConfig, PortDescriptionList.class);
 		return p;

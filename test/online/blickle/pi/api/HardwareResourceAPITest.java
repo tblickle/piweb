@@ -1,4 +1,4 @@
-package online.blickle.pi;
+package online.blickle.pi.api;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -11,12 +11,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import online.blickle.pi.PortDescription;
+import online.blickle.pi.PortDescriptionList;
+import online.blickle.pi.RaspberryPort;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.owlike.genson.Genson;
 
-public class HardwareAccessTest {
+public class HardwareResourceAPITest {
 
 	Genson genson;
 	Client client;

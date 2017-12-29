@@ -28,7 +28,7 @@
   </listener>
   <context-param>
        <param-name>online.blickle.pi.HardwareAccess</param-name>
-       <param-value>online.blickle.pi.HardwareEmulator</param-value>
+       <param-value>online.blickle.pi.impl.HardwareController</param-value>
        
        <!-- 
        <param-value>online.blickle.pi.HardwareEmulator</param-value>
@@ -42,126 +42,29 @@
 {
   "portDescriptions": [
     {
-      "description": "Licht Terasse",
-      "id": "LICHT_TERRASSE",
+      "description": "Output Port 0",
+      "id": "OUTPUT_0",
       "isOutput": true,
       "raspPortNr": 0
     },
     {
-      "description": "Steckdose Terasse",
-      "id": "STECKDOSE_TERRASSE",
+      "description": "Output Port 1",
+      "id": "OUTPUT_1",
       "isOutput": true,
       "raspPortNr": 1
     },
     {
-      "description": "Tueroeffner",
-      "id": "TUEROEFFNER",
-      "isOutput": true,
+      "description": "Input Port 0",
+      "id": "INPUT_0",
+      "isOutput": false,
       "raspPortNr": 2
     },
     {
-      "description": "Zirkulationspumpe",
-      "id": "ZIRKULATIONSPUMPE",
-      "isOutput": true,
+      "description": "Input Port 1",
+      "id": "INPUT_1",
+      "isOutput": false,
       "raspPortNr": 3
-    },
-    {
-      "description": "Rolladen Terasse",
-      "id": "ROLLADEN_TERRASSE",
-      "isOutput": true,
-      "raspPortNr": 4
-    },
-    {
-      "description": "Rolladen Sofa",
-      "id": "ROLLADEN_SOFA",
-      "isOutput": true,
-      "raspPortNr": 5
-    },
-    {
-      "description": "Rolladen Mitte",
-      "id": "ROLLADEN_MITTE",
-      "isOutput": true,
-      "raspPortNr": 6
-    },
-    {
-      "description": "Rolladen Richtung",
-      "id": "ROLLADEN_RICHTUNG",
-      "isOutput": true,
-      "raspPortNr": 7
-    },
-    {
-      "description": "Licht Treppe",
-      "id": "LICHT_TREPPE",
-      "isOutput": true,
-      "raspPortNr": 24
-    },
-    {
-      "description": "Heizung Standby",
-      "id": "HEIZUNG_STANDBY",
-      "isOutput": true,
-      "raspPortNr": 25
-    },
-    {
-      "description": "Output 8",
-      "id": "OUTPUT_8",
-      "isOutput": true,
-      "raspPortNr": 22
-    },
-    {
-      "description": "Output 9",
-      "id": "OUTPUT_9",
-      "isOutput": true,
-      "raspPortNr": 23
-    },
-    {
-      "description": "Taster Aussen",
-      "id": "TASTER_AUSSEN",
-      "isOutput": false,
-      "raspPortNr": 8
-    },
-    {
-      "description": "Bewegungsmelder Einfahrt",
-      "id": "BEWEGUNGSMELDER_EINFAHRT",
-      "isOutput": false,
-      "raspPortNr": 10
-    },
-    {
-      "description": "Bewegungsmelder Terrasse",
-      "id": "BEWEGUNGSMELDER_TERRASSE",
-      "isOutput": false,
-      "raspPortNr": 9
-    },
-    {
-      "description": "Schalter Wohnzimmer",
-      "id": "SCHALTER_WZ",
-      "isOutput": false,
-      "raspPortNr": 11
-    },
-    {
-      "description": "Input 4",
-      "id": "INPUT_4",
-      "isOutput": false,
-      "raspPortNr": 12
-    },
-    {
-      "description": "Input 5",
-      "id": "INPUT_5",
-      "isOutput": false,
-      "raspPortNr": 13
-    },
-    {
-      "description": "LAN Status",
-      "id": "LAN_STATUS",
-      "isOutput": false,
-      "raspPortNr": 14
-    },
-    {
-      "description": "Input 7",
-      "id": "INPUT_7",
-      "isOutput": false,
-      "raspPortNr": 15
-    }
-  ]
+    }  ]
 }</param-value>
   </context-param>
 </web-app>

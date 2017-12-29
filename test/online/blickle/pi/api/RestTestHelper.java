@@ -1,4 +1,4 @@
-package online.blickle.pi.observer;
+package online.blickle.pi.api;
 
 
 import javax.ws.rs.client.Client;
