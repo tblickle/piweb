@@ -1,5 +1,11 @@
 package online.blickle.pi.resource;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +29,7 @@ import online.blickle.pi.PortDescriptionList;
 import online.blickle.pi.RaspberryPort;
 
 
-
+@Api(value = "/ports")
 @Path("/ports")
 public class HardwareResoure {
 	
@@ -31,7 +37,8 @@ public class HardwareResoure {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Collection<RaspberryPort> getPortStatus() throws Exception {
+	@ApiOperation(value = "List all ports",  notes = "Returns status of all ports",  response = Collection.class)
+	public Collection<RaspberryPort> getAllPortStatus() throws Exception {
 	
 		HardwareAccess ctrl = getHardwareAccess();
 		PortDescriptionList pc = getPortConfiguration();
@@ -46,7 +53,8 @@ public class HardwareResoure {
 	@Path("/{id}/")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public RaspberryPort getPortStatus(@PathParam("id") String id) throws IOException {
+	@ApiOperation(value = "Find port ID",  notes = "Returns status of single port",  response = RaspberryPort.class)
+	public RaspberryPort getPortStatus( @ApiParam(value = "ID of port") @PathParam("id") String id) throws IOException {
 	
 		HardwareAccess ctrl = getHardwareAccess();
 		PortDescriptionList pc = getPortConfiguration();
@@ -60,7 +68,12 @@ public class HardwareResoure {
 	@Path("/{id}")
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response setPortStatus(@PathParam("id") String id,String value) throws IOException {
+	@ApiOperation(value = "Set port status of specific port to 0/1")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 400, message = "Invalid ID supplied"),
+		    @ApiResponse(code = 201, message = "Port status set") 
+			})
+	public Response setPortStatus(@ApiParam(value = "ID of port") @PathParam("id") String id,@ApiParam(value = "New state of port ('0', '1', 'false','true')") String value) throws IOException {
 	
 		boolean portStatus = extractPortStatus(value);
 		HardwareAccess ctrl = getHardwareAccess();

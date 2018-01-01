@@ -1,4 +1,8 @@
-package online.blickle.pi.resource;
+package online.blickle.pi.observer;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 import java.util.Collection;
 
@@ -14,11 +18,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import online.blickle.pi.observer.ObserverManager;
-import online.blickle.pi.observer.PortObserver;
+import online.blickle.pi.RaspberryPort;
 
 
 @Path("/observers")
+@Api(value = "/observers")
 public class PortObserverResource {
 
 	@Context ServletContext servletContext;
@@ -26,7 +30,8 @@ public class PortObserverResource {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Collection<PortObserver> getObserver() throws Exception {
+	@ApiOperation(value = "List all registered port obeservers",  notes = "Returns status of single port",  response = RaspberryPort.class)
+	public Collection<PortObserver> getAllObservers() throws Exception {
 		ObserverManager om = getObserverManager();
 		return om.getAllObservers();
 	}
@@ -34,7 +39,8 @@ public class PortObserverResource {
 	@Path("/{id}/")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getPortStatus(@PathParam("id") String id) {
+	@ApiOperation(value = "Find observer by observer-ID",  notes = "Returns info of single observer",  response = PortObserver.class)
+	public Response getObserver( @ApiParam(value = "ID of observer") @PathParam("id") String id) {
 		ObserverManager om = getObserverManager();
 		PortObserver po= om.getObserver(id);
 		if (po==null) {
@@ -46,7 +52,8 @@ public class PortObserverResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response putNewObserver(PortObserver observer) {
+	@ApiOperation(value = "Register observer",  notes = "Registers a new observer",  response = PortObserver.class)
+	public Response putNewObserver(@ApiParam(value = "New observer") PortObserver observer) {
 		ObserverManager om = getObserverManager();
 		String po= om.addObserver(observer);
 		PortObserver pos = om.getObserver(po);
@@ -55,7 +62,8 @@ public class PortObserverResource {
 	
 	@Path("/{id}/")
 	@DELETE
-	public Response deleteObserver(@PathParam("id") String id) {
+	@ApiOperation(value = "Unregister observer",  notes = "Removes the observer with the given ID") 
+	public Response deleteObserver(@ApiParam(value = "ID of observer") @PathParam("id") String id) {
 		ObserverManager om = getObserverManager();
 		PortObserver po= om.getObserver(id);
 		if (po==null) {

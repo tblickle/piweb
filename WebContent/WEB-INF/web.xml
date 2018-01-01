@@ -1,70 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>piweb</display-name>
-  <welcome-file-list>
+<display-name>piweb</display-name>
+<welcome-file-list>
     <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-  <servlet>
- <servlet-name>Jersey REST Service</servlet-name>
- <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
- <init-param>
- <param-name>jersey.config.server.provider.packages</param-name>
- <param-value>online.blickle.pi.resource;online.blickle.pi.observer</param-value>
- </init-param>
- <init-param>
- <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
- <param-value>true</param-value>
- </init-param>
- <load-on-startup>1</load-on-startup>
+</welcome-file-list>
+<servlet>
+	 <servlet-name>Jersey REST Service</servlet-name>
+	 <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+	 <init-param>
+		 <param-name>jersey.config.server.provider.packages</param-name>
+		 <param-value>io.swagger.jaxrs.listing;online.blickle.pi.resource;online.blickle.pi.observer</param-value>
+	 </init-param>
+	 <init-param>
+		 <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+		 <param-value>true</param-value>
+	 </init-param>
+	 <load-on-startup>1</load-on-startup>
 </servlet>
+<servlet>
+    <servlet-name>Jersey2Config</servlet-name>
+    <servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+    <init-param>
+        <param-name>api.version</param-name>
+        <param-value>1.0.0</param-value>
+    </init-param>
+    <init-param>
+        <param-name>swagger.api.basepath</param-name>
+        <param-value>/piweb/v1</param-value>
+    </init-param>
+    <init-param>
+	  	<param-name>swagger.api.title</param-name>
+	  	<param-value>piweb: Raspberry PI REST Web API</param-value>
+	</init-param>
+	<init-param>
+		<param-name>swagger.pretty.print</param-name>
+		<param-value>true</param-value>
+	</init-param>
+    <load-on-startup>2</load-on-startup>
+</servlet>
+    
 <servlet-mapping>
- <servlet-name>Jersey REST Service</servlet-name>
- <url-pattern>/v1/*</url-pattern>
+	 <servlet-name>Jersey REST Service</servlet-name>
+	 <url-pattern>/v1/*</url-pattern>
 </servlet-mapping>
- <listener>
+<listener>
  	<listener-class>
         online.blickle.pi.init.PiwebServletContextListener
     </listener-class>
-  </listener>
-  <context-param>
-       <param-name>online.blickle.pi.HardwareAccess</param-name>
-       <param-value>online.blickle.pi.impl.HardwareController</param-value>
-       
-       <!-- 
-       <param-value>online.blickle.pi.HardwareEmulator</param-value>
-       <param-value>online.blickle.pi.impl.HardwareController</param-value>
-       
-        -->
-  </context-param>
-  <context-param>
-       <param-name>online.blickle.pi.PortConfiguration</param-name>
-       <param-value>
-{
-  "portDescriptions": [
-    {
-      "description": "Output Port 0",
-      "id": "OUTPUT_0",
-      "isOutput": true,
-      "raspPortNr": 0
-    },
-    {
-      "description": "Output Port 1",
-      "id": "OUTPUT_1",
-      "isOutput": true,
-      "raspPortNr": 1
-    },
-    {
-      "description": "Input Port 0",
-      "id": "INPUT_0",
-      "isOutput": false,
-      "raspPortNr": 2
-    },
-    {
-      "description": "Input Port 1",
-      "id": "INPUT_1",
-      "isOutput": false,
-      "raspPortNr": 3
-    }  ]
-}</param-value>
-  </context-param>
+</listener>
+<context-param>
+    <param-name>online.blickle.pi.HardwareAccess</param-name>
+    <param-value>online.blickle.pi.HardwareEmulator</param-value>
+    <!-- 
+    <param-value>online.blickle.pi.HardwareEmulator</param-value>
+    <param-value>online.blickle.pi.impl.HardwareController</param-value>
+     -->
+</context-param>
+<context-param>
+      <param-name>online.blickle.pi.PortConfiguration</param-name>
+      <param-value>
+		{
+		  "portDescriptions": [
+		    {
+		      "description": "Output Port 0",
+		      "id": "OUTPUT_0",
+		      "isOutput": true,
+		      "raspPortNr": 0
+		    },
+		    {
+		      "description": "Output Port 1",
+		      "id": "OUTPUT_1",
+		      "isOutput": true,
+		      "raspPortNr": 1
+		    },
+		    {
+		      "description": "Input Port 0",
+		      "id": "INPUT_0",
+		      "isOutput": false,
+		      "raspPortNr": 2
+		    },
+		    {
+		      "description": "Input Port 1",
+		      "id": "INPUT_1",
+		      "isOutput": false,
+		      "raspPortNr": 3
+		    }  ]
+		}
+	</param-value>
+</context-param>
 </web-app>

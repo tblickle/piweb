@@ -1,5 +1,13 @@
 package online.blickle.pi.resource;
 
+import java.util.Collection;
+
+import io.swagger.annotations.Api;
+
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,13 +17,16 @@ import javax.ws.rs.core.MediaType;
 
 import online.blickle.pi.PortDescriptionList;
 
-@Path("/configuration")
+@Api(value = "/descriptions")
+@Path("/descriptions")
 public class ConfigurationResource {
 
 @Context ServletContext servletContext;
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
+	@ApiOperation(value = "List configuration of all ports",    response = PortDescriptionList.class)
+	
 	public PortDescriptionList getPortConCollection() throws Exception {
 		PortDescriptionList pc = getPortConfiguration(servletContext);
 		return pc;
