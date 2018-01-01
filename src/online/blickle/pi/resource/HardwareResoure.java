@@ -70,8 +70,9 @@ public class HardwareResoure {
 	@Produces({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "Set port status of specific port to 0/1")
 	@ApiResponses(value = { 
-			@ApiResponse(code = 400, message = "Invalid ID supplied"),
-		    @ApiResponse(code = 201, message = "Port status set") 
+			@ApiResponse(code = 500, message = "Invalid ID supplied"),
+			@ApiResponse(code = 400, message = "No output port"),
+		    @ApiResponse(code = 201, message = "Success: port status set") 
 			})
 	public Response setPortStatus(@ApiParam(value = "ID of port") @PathParam("id") String id,@ApiParam(value = "New state of port ('0', '1', 'false','true')") String value) throws IOException {
 	
